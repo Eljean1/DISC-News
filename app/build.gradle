@@ -1,3 +1,4 @@
+
 //Calculo del version Code
 def BUILD_DATE_TIME = new Date().format("yywwuHHmm").toInteger()
 logger.lifecycle("Using buildDateTime: ${BUILD_DATE_TIME}")
@@ -7,6 +8,7 @@ logger.lifecycle("Using buildDateTime: ${BUILD_DATE_TIME}")
 //https://en.wikipedia.org/wiki/Moons_of_Saturn
 def BUILD_NAME = "Aegaeon"
 apply plugin: 'com.android.application'
+
 
 android {
     compileSdkVersion 26
@@ -21,10 +23,22 @@ android {
     }
     buildTypes {
         release {
+            minifyEnabled true
+            shrinkResources true
+            zipAlignEnabled true
+            crunchPngs true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            debuggable true
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            shrinkResources false
+            zipAlignEnabled false
+            crunchPngs false
+            versionNameSuffix "-debug"
         }
     }
+
 }
 
 dependencies {
